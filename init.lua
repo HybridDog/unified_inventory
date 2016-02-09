@@ -54,6 +54,8 @@ unified_inventory = {
 
 	hide_disabled_buttons = minetest.settings:get_bool("unified_inventory_hide_disabled_buttons", false),
 	hide_uncraftable_items = minetest.settings:get_bool("unified_inventory_hide_uncraftable_items", false),
+	trash_use_listring = minetest.settings:get_bool(
+		"unified_inventory_trash_listring"),
 
 	version = 5
 }

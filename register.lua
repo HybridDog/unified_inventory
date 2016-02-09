@@ -172,17 +172,27 @@ ui.register_page("craft", {
 		local crafty = perplayer_formspec.craft_y
 
 		local player_name = player:get_player_name()
+
+		local has_give_or_creative = ui.is_creative(player_name)
+			or minetest.get_player_privs(player_name).give
+
+		local listring
+		if has_give_or_creative and unified_inventory.trash_use_listring then
+			listring = "listring[detached:trash;main]"
+		else
+			listring = "listring[current_name;craft]"
+		end
 		local formspec = {
 			perplayer_formspec.standard_inv_bg,
 			perplayer_formspec.craft_grid,
 			"label["..formheaderx..","..formheadery..";" ..F(S("Crafting")).."]",
 			"listcolors[#00000000;#00000000]",
-			"listring[current_name;craft]",
+			listring,
 			"listring[current_player;main]"
 		}
 		local n=#formspec+1
 
-		if ui.trash_enabled or ui.is_creative(player_name) or minetest.get_player_privs(player_name).give then
+		if ui.trash_enabled or has_give_or_creative then
 			formspec[n] = string.format("label[%f,%f;%s]", craftx + 6.35, crafty + 2.3, F(S("Trash:")))
 			formspec[n+1] = ui.make_trash_slot(craftx + 6.25, crafty + 2.5)
 			n=n + 2
