@@ -58,7 +58,8 @@ minetest.after(0.01, function()
 
 			end
 		-- Complex drops. Yes, it's really complex!
-		elseif type(def.drop) == "table" then
+		elseif type(def.drop) == "table"
+		and next(def.drop) then
 			--[[ Extract single items from the table and save them into dedicated tables
 			to register them later, in order to avoid duplicates. These tables counts
 			the total number of guaranteed drops and drops by chance (“maybes”) for each item.
